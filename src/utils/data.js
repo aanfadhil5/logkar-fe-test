@@ -13,8 +13,8 @@ export const navbarList = [
     icon: ShoppingBag,
   },
   {
-    href: "/shopping-cart",
-    path: "/shopping-cart",
+    href: "/cart",
+    path: "/cart",
     title: "Shopping Cart",
     icon: ShoppingCart,
   },

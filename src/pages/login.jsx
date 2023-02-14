@@ -1,41 +1,61 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
+import axios from "axios";
 
 const login = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const [visiblePassword, setVisiblePassword] = useState(false);
   const [form, setForm] = useState({
-    user: "",
+    name: "",
     password: "",
     error_desc: "",
   });
-  const [loading, setLoading] = useState(false);
-  const [visiblePassword, setVisiblePassword] = useState(false);
+
+  const validateName = (name) => {
+    if (name.length < 3 || name.length > 30) {
+      setForm((prev) => ({ ...prev, error_desc: "Name is not valid" }));
+      return false;
+    } else {
+      setForm((prev) => ({ ...prev, error_desc: "" }));
+      return true;
+    }
+  };
+
+  const validatePassword = (password) => {
+    if (password.length < 3 || password.length > 10) {
+      setForm((prev) => ({ ...prev, error_desc: "Password is not valid" }));
+      return false;
+    } else if (!/[A-Z]/.test(password)) {
+      setForm((prev) => ({
+        ...prev,
+        error_desc: "Password must include a capital letter",
+      }));
+      return false;
+    } else {
+      setForm((prev) => ({ ...prev, error_desc: "" }));
+      return true;
+    }
+  };
 
   const inputChange = (e) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    if (e.target.name === "name") {
+      validateName(e.target.value);
+    } else if (e.target.name === "password") {
+      validatePassword(e.target.value);
+    }
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    const data = {
-      email: form.email,
-      password: form.password,
-    };
-    axios
-      .post("https://reqres.in/api/login", data)
-      .then((res) => {
-        sessionStorage.setItem("token", res.data.token);
-        navigate("/home");
-      })
-      .catch((error) => {
-        if (error.response.status === 400) {
-          setForm({
-            ...form,
-            error: true,
-            error_desc: error.response.data.error,
-          });
-        }
-      });
+    const data = form;
+
+    sessionStorage.setItem("name", data.name);
+    if (form.error_desc == "") {
+      navigate("/home");
+    }
   };
 
   return (
@@ -44,15 +64,13 @@ const login = () => {
         <div className="md:w-1/2 px-8 md:px-16">
           <h1 className="font-bold text-2xl text-primer">Login</h1>
 
-          <form className="flex flex-col gap-6">
+          <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
             <input
-              id="username"
-              name="user"
-              placeholder="Username"
+              name="name"
               type="text"
+              placeholder="Name"
               className="p-2 mt-8 rounded-xl border"
               onChange={inputChange}
-              autoFocus
               required
             />
             <div className="relative">
@@ -63,7 +81,6 @@ const login = () => {
                 placeholder="Password"
                 onChange={inputChange}
                 required
-                autoComplete="on"
               />
               <i
                 className="absolute top-1/2 right-3 -translate-y-1/2 text-xl"
@@ -77,14 +94,12 @@ const login = () => {
             <button
               className="bg-[#002D74] rounded-xl text-white py-2 hover:scale-105 duration-300"
               type="submit"
-              onClick={handleSubmit}
               disabled={loading}
             >
               Login
             </button>
-            <div>{loading ? <Loading /> : ""}</div>
-            {form.error_list ? (
-              <p className="text-red-500">Email / Kata Sandi salah.</p>
+            {form.error_desc ? (
+              <p className="text-red-500">{form.error_desc}</p>
             ) : (
               ""
             )}
