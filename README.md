@@ -22,12 +22,6 @@ Clone the project
   git clone https://github.com/aanfadhil5/logkar-fe-test.git
 ```
 
-Go to the project directory
-
-```bash
-  cd my-project
-```
-
 Install dependencies
 
 ```bash
