@@ -34,19 +34,25 @@ const Home = () => {
 
   return (
     <Layout>
-      <div>
-        <p>Name: {data.name}</p>
-        <p>Email:{data.email}</p>
-        <p>Telepon:{data.telepon}</p>
-        <p>Alamat:{data.address}</p>
-        <button
-          className="p-4 bg-blue-500 border rounded"
-          onClick={() => {
-            setViewModal(true);
-          }}
-        >
-          Lengkapi data diri Anda
-        </button>
+      <div className="min-h-screen mx-auto flex items-center justify-center">
+        <div className="">
+          <div className="max-w-md flex flex-col gap-4 text-xl">
+            <p>Name: {data.name}</p>
+            <p>Email: {data.email}</p>
+            <p>Telepon: +62{data.telepon}</p>
+            <p>Alamat: {data.address}</p>
+            <button
+              className="btn btn-accent"
+              onClick={() => {
+                setViewModal(true);
+              }}
+            >
+              {data.name && data.email && data.telepon && data.address
+                ? "Ubah data diri anda"
+                : "Lengkapi data diri Anda"}
+            </button>
+          </div>
+        </div>
         {viewModal && (
           <Modal data={data} close={closeModal} onSubmit={handleSubmit} />
         )}

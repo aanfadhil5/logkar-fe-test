@@ -28,24 +28,10 @@ export const { getProducts, getProductsSuccess, getProductsFailure } =
 
 export const fetchProducts = () => async (dispatch) => {
   dispatch(getProducts());
-  //   fetch("https://fakestoreapi.com/products")
-  //     .then((res) => res.json())
-  //     .then((data) => dispatch(getProductsSuccess(data)))
-  //     .catch((err) => dispatch(getProductsFailure(err)));
-
-  //   axios
-  //     .get("https://swapi.dev/api/films/")
-  //     .then((response) => {
-  //       dispatch(getProductsSuccess(response.data.results));
-  //     })
-  //     .catch((err) => {
-  //       dispatch(getProductsFailure(err));
-  //     });
-
   axios
-    .get("https://fakestoreapi.com/products")
+    .get("https://swapi.dev/api/films/")
     .then((response) => {
-      dispatch(getProductsSuccess(response.data));
+      dispatch(getProductsSuccess(response.data.results));
     })
     .catch((err) => {
       dispatch(getProductsFailure(err));

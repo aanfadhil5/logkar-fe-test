@@ -45,7 +45,7 @@ const Modal = ({ close, data, onSubmit }) => {
     <>
       <div className="fixed inset-y-auto inset-x-0 z-50 w-full mx-auto max-w-3xl rounded-lg">
         <div className="flex flex-col">
-          <div className="flex p-5 bg-blue-500">
+          <div className="flex p-5 bg-accent-focus">
             <h3 className="text-xl font-semibold text-white">Edit Identitas</h3>
             <button
               className="p-1 ml-auto border-0 text-white float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
@@ -54,48 +54,62 @@ const Modal = ({ close, data, onSubmit }) => {
               <span className="text-white h-6 w-6 text-xl block">X</span>
             </button>
           </div>
-          <div className="bg-gray-50">
-            <form onSubmit={handleSubmit}>
-              <div className="space-y-4 p-4">
+          <div className="bg-[#2A303C]">
+            <form onSubmit={handleSubmit} className="form-control">
+              <div className="p-4">
+                <label className="label">
+                  <span className="label-text">Your Name</span>
+                </label>
                 <input
                   name="name"
                   defaultValue={modalData.name || ""}
-                  className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md p-2"
-                  placeholder="Masukkan email anda"
+                  className="input input-bordered input-accent w-full"
+                  placeholder="Name"
                   onChange={handleChange}
                   required
                 />
-
-                <input
-                  name="email"
-                  defaultValue={modalData.email || ""}
-                  placeholder="Masukkan email anda"
-                  className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md p-2"
-                  type="email"
-                  onChange={handleChange}
-                  required
-                />
-
-                <input
-                  name="telepon"
-                  defaultValue={modalData.telepon || ""}
-                  placeholder="Masukkan nomor telepon"
-                  className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md p-2"
-                  required
-                  type="number"
-                  onChange={handleChange}
-                />
-
-                <input
+                <label className="label">
+                  <span className="label-text">Your Email</span>
+                </label>
+                <label className="input-group">
+                  <input
+                    name="email"
+                    defaultValue={modalData.email || ""}
+                    placeholder="email@email.com"
+                    className="input input-bordered input-accent w-full"
+                    type="email"
+                    onChange={handleChange}
+                    required
+                  />
+                </label>
+                <label className="label">
+                  <span className="label-text">Phone Number</span>
+                </label>
+                <label className="input-group">
+                  <span>+62</span>
+                  <input
+                    name="telepon"
+                    defaultValue={modalData.telepon || ""}
+                    placeholder="823141423"
+                    className="input input-bordered input-accent w-full"
+                    required
+                    type="number"
+                    onChange={handleChange}
+                  />
+                </label>
+                <label className="label">
+                  <span className="label-text">Your Address</span>
+                </label>
+                <textarea
                   name="address"
                   defaultValue={modalData.address || ""}
-                  placeholder="Masukkan alamat lengkap"
-                  className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md p-2"
+                  placeholder="123 Street"
+                  className="textarea input-bordered input-accent w-full"
                   required
                   onChange={handleChange}
-                />
+                ></textarea>
               </div>
-              <p>{error ? `${error}` : null}</p>
+              <p className="text-warning">{error ? `${error}` : null}</p>
 
               <div className="p-2 sm:p-4 flex justify-end">
                 <button
@@ -107,7 +121,7 @@ const Modal = ({ close, data, onSubmit }) => {
                 </button>
                 <button
                   type="submit"
-                  className="py-2 px-5 text-white bg-blue-600 rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:bg-gray-700"
+                  className="btn btn-accent disabled:btn-disabled"
                   disabled={error ? true : false}
                 >
                   Simpan
@@ -117,7 +131,7 @@ const Modal = ({ close, data, onSubmit }) => {
           </div>
         </div>
       </div>
-      <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+      <div className="opacity-30 fixed inset-0 z-40 bg-black"></div>
     </>
   );
 };

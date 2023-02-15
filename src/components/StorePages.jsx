@@ -9,18 +9,18 @@ const StorePages = () => {
   const products = useSelector((state) => state.products);
   const selected = useSelector((state) => state.cart);
 
-  const isSelected = (productId) => {
-    return selected.some((item) => item.id === productId);
+  const isSelected = (filmId) => {
+    return selected.some((item) => item.episode_id === filmId);
   };
 
   const handleAddToCart = (item) => {
     dispatch(addToCart(item));
   };
 
-  const handleRemoveFromCart = (id) => {
-    const index = selected.findIndex((item) => item.id === id);
+  const handleRemoveFromCart = (filmId) => {
+    const index = selected.findIndex((item) => item.episode_id === filmId);
     if (index >= 0) {
-      dispatch(removeFromCart(id));
+      dispatch(removeFromCart(filmId));
     }
   };
 
@@ -33,23 +33,33 @@ const StorePages = () => {
       {products.loading ? (
         <LoadingPage />
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mx-auto gap-y-20 gap-x-14 mt-10 mb-5 p-8">
           {products.list.map((item, index) => (
-            <div className="border-2 border-gray-600" key={index}>
-              <div className="px-6 py-4">
-                <p className="font-semibold text-lg text-gray-700">
-                  {item.title}
-                </p>
-                <button
-                  className="bg-blue-300 w-full rounded"
-                  onClick={() =>
-                    isSelected(item.id)
-                      ? handleRemoveFromCart(item.id)
-                      : handleAddToCart(item)
-                  }
-                >
-                  {isSelected(item.id) ? "selected" : "add"}
-                </button>
+            <div
+              className="shadow-xl bg-base-300 rounded-xl hover:scale-105 flex flex-col duration-200"
+              key={item.episode_id}
+            >
+              <figure className="flex items-center justify-center">
+                <img
+                  src="https://cdn.marvel.com/content/1x/avengersendgame_lob_crd_05.jpg"
+                  alt="alt"
+                  className="object-cover rounded-t-xl h-fit w-full"
+                />
+              </figure>
+              <div className="p-4 flex flex-col gap-4">
+                <p className="text-lg font-semibold">{item.title}</p>
+                <div className="">
+                  <button
+                    className="btn btn-accent w-full"
+                    onClick={() =>
+                      isSelected(item.episode_id)
+                        ? handleRemoveFromCart(item.episode_id)
+                        : handleAddToCart(item)
+                    }
+                  >
+                    {isSelected(item.episode_id) ? "Selected" : "Add to cart"}
+                  </button>
+                </div>
               </div>
             </div>
           ))}

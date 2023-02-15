@@ -15,7 +15,10 @@ const login = () => {
 
   const validateName = (name) => {
     if (name.length < 3 || name.length > 30) {
-      setForm((prev) => ({ ...prev, error_desc: "Name is not valid" }));
+      setForm((prev) => ({
+        ...prev,
+        error_desc: "Name must be min 3 char max 30 char",
+      }));
       return false;
     } else {
       setForm((prev) => ({ ...prev, error_desc: "" }));
@@ -25,7 +28,10 @@ const login = () => {
 
   const validatePassword = (password) => {
     if (password.length < 3 || password.length > 10) {
-      setForm((prev) => ({ ...prev, error_desc: "Password is not valid" }));
+      setForm((prev) => ({
+        ...prev,
+        error_desc: "Password must be min 3 char max 10 char",
+      }));
       return false;
     } else if (!/[A-Z]/.test(password)) {
       setForm((prev) => ({
@@ -43,7 +49,8 @@ const login = () => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     if (e.target.name === "name") {
       validateName(e.target.value);
-    } else if (e.target.name === "password") {
+    }
+    if (e.target.name === "password") {
       validatePassword(e.target.value);
     }
   };
@@ -59,26 +66,27 @@ const login = () => {
   };
 
   return (
-    <section className="bg-gray-50 min-h-screen flex items-center justify-center">
-      <div className="bg-gray-100 flex rounded-2xl shadow-lg max-w-5xl p-5 items-center">
-        <div className="md:w-1/2 px-8 md:px-16">
-          <h1 className="font-bold text-2xl text-primer">Login</h1>
-
-          <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
+    <section className="hero min-h-screen">
+      <div className=" hero-content flex rounded-2xl shadow-xl max-w-5xl p-8 items-center bg-base-200">
+        <div className="md:w-3/4 px-4 md:px-16">
+          <form
+            className="form-control w-full max-w-xs gap-8 "
+            onSubmit={handleSubmit}
+          >
             <input
               name="name"
               type="text"
               placeholder="Name"
-              className="p-2 mt-8 rounded-xl border"
+              className="input input-bordered input-accent w-full max-w-xs"
               onChange={inputChange}
               required
             />
             <div className="relative">
               <input
-                className="p-2 rounded-xl border w-full"
                 type={visiblePassword ? "text" : "password"}
                 name="password"
                 placeholder="Password"
+                className="input input-bordered input-accent w-full max-w-xs"
                 onChange={inputChange}
                 required
               />
@@ -92,17 +100,17 @@ const login = () => {
               </i>
             </div>
             <button
-              className="bg-[#002D74] rounded-xl text-white py-2 hover:scale-105 duration-300"
+              className="btn btn-accent hover:scale-105 duration-300 disabled:cursor-not-allowed"
               type="submit"
-              disabled={loading}
+              disabled={form.error_desc}
             >
               Login
             </button>
-            {form.error_desc ? (
-              <p className="text-red-500">{form.error_desc}</p>
-            ) : (
-              ""
-            )}
+            <div className="flex justify-center mx-auto w-full max-w-xs">
+              {form.error_desc ? (
+                <p className="text-red-500">{form.error_desc}</p>
+              ) : null}
+            </div>
           </form>
         </div>
 
