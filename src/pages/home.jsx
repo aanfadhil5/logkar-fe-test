@@ -35,7 +35,14 @@ const Home = () => {
   return (
     <Layout>
       <div className="min-h-screen mx-auto flex items-center justify-center">
-        <div className="">
+        <div className="md:p-14 p-8 rounded-lg shadow-2xl bg-base-200 md:flex gap-12">
+          <figure className="flex justify-center mb-12">
+            <img
+              src="https://static.ffx.io/images/$width_584/t_resize_width/q_86%2Cf_auto/a76c1590a4ab2ae7219ea36817a6e2dfd6a00c27"
+              className="rounded-full w-48 h-48 object-cover"
+              alt="avatar"
+            />
+          </figure>
           <div className="max-w-md flex flex-col gap-4 text-xl">
             <p>Name: {data.name}</p>
             <p>Email: {data.email}</p>

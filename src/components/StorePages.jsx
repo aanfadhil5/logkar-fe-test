@@ -33,10 +33,10 @@ const StorePages = () => {
       {products.loading ? (
         <LoadingPage />
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mx-auto gap-y-20 gap-x-14 mt-10 mb-5 p-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mx-auto gap-y-20 gap-x-14 mt-10 mb-5 p-8">
           {products.list.map((item, index) => (
             <div
-              className="shadow-xl bg-base-300 rounded-xl hover:scale-105 flex flex-col duration-200"
+              className="shadow-xl bg-base-300 rounded-xl hover:scale-105 flex flex-col duration-200 md:w-fit"
               key={item.episode_id}
             >
               <figure className="flex items-center justify-center">
